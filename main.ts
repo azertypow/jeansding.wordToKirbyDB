@@ -108,8 +108,6 @@ async function main() {
     })
   })
 
-  console.log( items )
-
   debugger
 
 }
