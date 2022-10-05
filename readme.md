@@ -4,6 +4,8 @@
 
 Pandoc
 
+Pandoc is used to convert docx to html and extract all images
+
 ## commands
 
 install dependencies
@@ -11,4 +13,3 @@ install dependencies
 ``` bash
 npm install
 ```
-
