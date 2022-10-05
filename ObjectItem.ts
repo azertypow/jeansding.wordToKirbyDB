@@ -22,4 +22,56 @@ export class ObjectItem {
   ) {
 
   }
+
+  createStringDocument() {
+return `
+Title: ${this.props.title}
+
+----
+
+Id: ${this.props.id}
+
+----
+
+Text: ${this.props.text}
+
+----
+
+Tags: ${this.props.tags.toString()}
+
+----
+
+Infoobject: ${this.props.infoObject}
+
+----
+
+Infomaterial: ${this.props.infoMaterial}
+
+----
+
+Infodate: ${this.props.infoDate}-01-01
+
+----
+
+Infolocation: ${this.props.infoLocation}
+
+----
+
+Infomade-in: ${this.props.infoMade_in}
+
+----
+
+Infoprice: ${this.props.infoPrice}
+
+----
+
+Infodimensions: ${this.props.infoDimensions}
+
+----
+
+Infoloan: ${this.props.infoLoan}
+
+`
+  }
+
 }
