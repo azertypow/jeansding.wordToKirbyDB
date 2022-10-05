@@ -1,17 +1,25 @@
+export interface IObjectItemProperties {
+  id              : string
+  title           : string
+  tags            : string[]
+  imgName         : string
+  text            : string
+
+  infoObject      : string
+  infoMaterial    : string
+  infoDate        : string
+  infoLocation    : string
+  infoMade_in     : string
+  infoPrice       : string
+  infoDimensions  : string
+  infoLoan        : string
+}
+
 export class ObjectItem {
-  public title           = null
-  public headline        = null
-  public text            = null
-  public tags            = null
-  public infoObject      = null
-  public infoMaterial    = null
-  public infoDate        = null
-  public infoLocation    = null
-  public infoMade_in     = null
-  public infoPrice       = null
-  public infoDimensions  = null
-  public infoLoan        = null
 
+  constructor(
+    public props: IObjectItemProperties,
+  ) {
 
-  constructor() {}
+  }
 }

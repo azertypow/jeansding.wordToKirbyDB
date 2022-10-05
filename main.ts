@@ -1,7 +1,6 @@
 import {readFile} from 'fs/promises'
 import {parse, HTMLElement} from 'node-html-parser'
 import {ObjectItem} from "./ObjectItem"
-import {marked} from "marked"
 
 async function main() {
 
@@ -14,9 +13,6 @@ async function main() {
     )
 
   const parsed = parse(contentMDFile, {})
-
-  const arrayOfObjectItem: ObjectItem[] = []
-  let tempObjectItem = new ObjectItem()
 
   const htmlElements: HTMLElement[] = parsed.childNodes
     .filter(value => {
@@ -54,8 +50,6 @@ async function main() {
   ) => {
 
     let imageIsNotPast = true
-    let listIsPast = false
-    const tempsDescription = ""
 
     item.reduceRight((
       previousProperty: { tagName: string; textContent: string },
@@ -96,10 +90,27 @@ async function main() {
     })
   })
 
-  console.log(classifiedHtmlElement)
+  const items: ObjectItem[] = classifiedHtmlElement.map(value => {
+    return new ObjectItem({
+      id:         value[0].textContent,
+      tags:       value[1].textContent.split(','),
+      title:      value[2].textContent,
+      imgName:    value[3].textContent.replace('./media/', ''),
+      text:       value[4].textContent,
+      infoObject:     value[5].textContent.split('\n').find(tagLineValue => {return tagLineValue.match('Object:')}    )?. replace('Object:',      '').trim() || 'NULL',
+      infoMaterial:   value[5].textContent.split('\n').find(tagLineValue => {return tagLineValue.match('Material:')}  )?. replace('Material:',    '').trim() || 'NULL',
+      infoDate:       value[5].textContent.split('\n').find(tagLineValue => {return tagLineValue.match('Date:')}      )?. replace('Date:',        '').trim() || 'NULL',
+      infoLocation:   value[5].textContent.split('\n').find(tagLineValue => {return tagLineValue.match('Location:')}  )?. replace('Location:',    '').trim() || 'NULL',
+      infoMade_in:    value[5].textContent.split('\n').find(tagLineValue => {return tagLineValue.match('Made in:')}   )?. replace('Made in:',     '').trim() || 'NULL',
+      infoPrice:      value[5].textContent.split('\n').find(tagLineValue => {return tagLineValue.match('Price:')}     )?. replace('Price:',       '').trim() || 'NULL',
+      infoDimensions: value[5].textContent.split('\n').find(tagLineValue => {return tagLineValue.match('Dimensions:')})?. replace('Dimensions:',  '').trim() || 'NULL',
+      infoLoan:       value[5].textContent.split('\n').find(tagLineValue => {return tagLineValue.match('Loan:')}      )?. replace('Loan:',        '').trim() || 'NULL',
+    })
+  })
+
+  console.log( items )
 
   debugger
 
 }
 main()
-
