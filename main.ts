@@ -1,8 +1,22 @@
-import {readFile} from 'fs/promises'
+import {readFile, writeFile, mkdir, copyFile} from 'fs/promises'
+import {existsSync} from 'fs'
 import {parse, HTMLElement} from 'node-html-parser'
 import {ObjectItem} from "./ObjectItem"
 
 async function main() {
+
+const imageTemplate =
+`
+Sort: 1
+
+----
+
+Caption: 
+
+----
+
+Template: image
+`
 
   const contentMDFile =
     await readFile(
@@ -106,6 +120,37 @@ async function main() {
       infoDimensions: value[5].textContent.split('\n').find(tagLineValue => {return tagLineValue.match('Dimensions:')})?. replace('Dimensions:',  '').trim() || 'NULL',
       infoLoan:       value[5].textContent.split('\n').find(tagLineValue => {return tagLineValue.match('Loan:')}      )?. replace('Loan:',        '').trim() || 'NULL',
     })
+  })
+
+  items.forEach((item, index) => {
+
+    const dirPath = `./outputKirbyFiles/${index}_${encodeURI(item.props.id)}/`
+    const srcImgPath = "./outputHTML/media/"
+
+    mkdir(dirPath).then(() => {
+      writeFile(
+        `${dirPath}object.txt`,
+        item.createStringDocument(),
+        {encoding: 'utf8',}
+      )
+
+
+      const imgPath = `${srcImgPath}${item.props.imgName}`
+
+      if(existsSync( imgPath )) {
+        const newImagePath = `${dirPath}${item.newImageName}`
+
+        copyFile(imgPath, newImagePath)
+
+        writeFile(
+          `${newImagePath}.txt`,
+          imageTemplate,
+          {encoding: 'utf8',}
+        )
+      }
+    })
+
+      // props.id + props.title,
   })
 
   debugger

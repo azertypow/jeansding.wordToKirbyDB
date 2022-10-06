@@ -1,3 +1,5 @@
+import {extname} from "path"
+
 export interface IObjectItemProperties {
   id              : string
   title           : string
@@ -21,6 +23,10 @@ export class ObjectItem {
     public props: IObjectItemProperties,
   ) {
 
+  }
+
+  get newImageName() {
+    return `${this.props.id}_${this.props.title.replace(/\s/, '-')}${extname(this.props.imgName)}`
   }
 
   createStringDocument() {
@@ -70,6 +76,10 @@ Infodimensions: ${this.props.infoDimensions}
 ----
 
 Infoloan: ${this.props.infoLoan}
+
+----
+
+Images: - ${this.newImageName}
 
 `
   }
