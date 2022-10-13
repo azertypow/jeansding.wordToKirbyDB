@@ -19,3 +19,13 @@ install dependencies
 ``` bash
 npm install
 ```
+
+to generate kirby DB
+```shell
+npm run HTMLToKirbyDB
+```
+
+to generate html from word document
+```shell
+npm run docxToHTML
+```

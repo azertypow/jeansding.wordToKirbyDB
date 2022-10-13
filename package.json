@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run": "node --inspect=9222 -r ts-node/register main.ts",
+    "HTMLToKirbyDB": "node --inspect=9222 -r ts-node/register main.ts",
     "run--without-inspect": "ts-node main.ts",
     "docxToHTML": "mkdir -p outputHTML/ && cd outputHTML/ && pandoc --extract-media ./ ../src/20220803-Jeansdinge_430finalenglish.docx -o output.html"
   },
