@@ -94,7 +94,7 @@ Template: image
         && previousProperty.tagName === 'P'
       ) {
         item.splice(propertyIndex, 1)
-        previousProperty.textContent += '\n\n' + property.textContent
+        previousProperty.textContent = property.textContent + '\n\n' + previousProperty.textContent
       }
 
 
